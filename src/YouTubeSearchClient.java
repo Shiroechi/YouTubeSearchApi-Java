@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 public class YouTubeSearchClient
 {
@@ -81,6 +82,36 @@ public class YouTubeSearchClient
     }
 
     /**
+     * Search related YouTube video
+     * @param videoId id for YouTube video
+     * @param part use "snippet" for default
+     * @param maxResults number of search to return
+     * @return
+     */
+    public String SearchRelatedVideo(String videoId, String part, int maxResults)
+    {
+        try
+        {
+            String requestUrl = this._UrlBuilder.BuildSearchRelatedVideoUrl(videoId, part, maxResults);
+            URL url = new URL(requestUrl);
+            this._Client = (HttpURLConnection) url.openConnection();
+            this._Client.setRequestProperty("accept", "application/json");
+            String response = this.StreamToString(this._Client.getInputStream());
+            return response;
+        }
+        catch (MalformedURLException e)
+        {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+    }
+
+    /**
      * Get playlist
      * @param playlistId id for the YouTube playlist
      * @param maxResults number of video to return
@@ -116,6 +147,62 @@ public class YouTubeSearchClient
      * @return
      */
     public String GetVideoDetails(String videoId)
+    {
+        try
+        {
+            String requestUrl = this._UrlBuilder.BuildVideoDetailUrl(videoId);
+            URL url = new URL(requestUrl);
+            this._Client = (HttpURLConnection) url.openConnection();
+            this._Client.setRequestProperty("accept", "application/json");
+            String response = this.StreamToString(this._Client.getInputStream());
+            return response;
+        }
+        catch (MalformedURLException e)
+        {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+    }
+
+    /**
+     * Get video detail
+     * @param videoId id of the YouTube video
+     * @return
+     */
+    public String GetVideoDetails(String[] videoId)
+    {
+        try
+        {
+            String requestUrl = this._UrlBuilder.BuildVideoDetailUrl(videoId);
+            URL url = new URL(requestUrl);
+            this._Client = (HttpURLConnection) url.openConnection();
+            this._Client.setRequestProperty("accept", "application/json");
+            String response = this.StreamToString(this._Client.getInputStream());
+            return response;
+        }
+        catch (MalformedURLException e)
+        {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+    }
+
+    /**
+     * Get video detail
+     * @param videoId id of the YouTube video
+     * @return
+     */
+    public String GetVideoDetails(List<String> videoId)
     {
         try
         {

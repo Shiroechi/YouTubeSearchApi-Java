@@ -1,6 +1,7 @@
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 /**
  * Class for creating YouTube url.
@@ -53,6 +54,36 @@ public class UrlBuilder
     }
 
     /**
+     * Search related video based with other video.
+     * @param videoId id for the YouTube video 
+     * @param part use "snippet" for default
+     * @param maxResults number of search result
+     * @return
+     */
+    public String BuildSearchRelatedVideoUrl(String videoId, String part, int maxResults)
+    {
+        String encodedQuery;
+
+        try
+        {
+            encodedQuery = URLEncoder.encode(videoId, StandardCharsets.UTF_8.toString());
+        }
+        catch (UnsupportedEncodingException ex)
+        {
+            ex.printStackTrace();
+            throw new RuntimeException(ex.getCause());
+        }
+
+        String searchUrl = this._BaseSearchUrl +
+                           "&relatedToVideoId=" + encodedQuery +
+                           "&part=" + part +
+                           "&type=video" +
+                           "&maxResults=" + maxResults;
+
+        return searchUrl;
+    }
+
+    /**
      * Create video search url.
      * @param videoId id of the YouTube video.
      * @return
@@ -61,6 +92,56 @@ public class UrlBuilder
     {
         return this._BaseVideoDetailUrl +
                 "&id=" + videoId +
+                "&part=contentDetails";
+    }
+
+    /**
+     * Create video search url.
+     * @param videoId id of the YouTube video.
+     * @return
+     */
+    public String BuildVideoDetailUrl(String[] videoId)
+    {
+        String video = "";
+        if (videoId.length > 1)
+        {
+            for (String id : videoId)
+            {
+                video += "&id=" + id;
+            }
+        }
+        else
+        {
+            video = "&id=" + videoId[0];
+        }
+
+        return this._BaseVideoDetailUrl +
+                video +
+                "&part=contentDetails";
+    }
+
+    /**
+     * Create video search url.
+     * @param videoId id of the YouTube video.
+     * @return
+     */
+    public String BuildVideoDetailUrl(List<String> videoId)
+    {
+        String video = "";
+        if (videoId.size() > 1)
+        {
+            for (String id : videoId)
+            {
+                video += "&id=" + id;
+            }
+        }
+        else
+        {
+            video = "&id=" + videoId.get(0);
+        }
+
+        return this._BaseVideoDetailUrl +
+                video +
                 "&part=contentDetails";
     }
 
