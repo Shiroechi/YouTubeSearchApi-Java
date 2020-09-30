@@ -1,4 +1,4 @@
-package main.java.YouTubeSearchApi;
+package YouTubeSearchApi;
 
 import java.io.*;
 import java.net.HttpURLConnection;
