@@ -16,3 +16,6 @@ the output will give 10 video with "anime" keyword in JSON format
 
 # Build
 * Build with JDK 8
+
+# Donation
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X81SP2L)
