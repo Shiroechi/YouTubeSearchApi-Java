@@ -1,4 +1,4 @@
-package YouTubeSearchApi;
+package YouTubeSearchApi.utility;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

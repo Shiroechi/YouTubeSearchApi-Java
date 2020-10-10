@@ -1,5 +1,7 @@
 package YouTubeSearchApi;
 
+import YouTubeSearchApi.utility.UrlBuilder;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 
