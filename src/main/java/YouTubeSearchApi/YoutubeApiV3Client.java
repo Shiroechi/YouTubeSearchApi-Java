@@ -4,14 +4,13 @@ import YouTubeSearchApi.utility.UrlBuilder;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-public class YouTubeSearchClient
+public class YoutubeApiV3Client
 {
     private String _DeveloperKey = "";
     private UrlBuilder _UrlBuilder;
@@ -20,7 +19,7 @@ public class YouTubeSearchClient
     /**
      * Create Youtube search client instance.
      */
-    public YouTubeSearchClient()
+    public YoutubeApiV3Client()
     {
         this._DeveloperKey = "";
         this._UrlBuilder = new UrlBuilder(this._DeveloperKey);
@@ -30,7 +29,7 @@ public class YouTubeSearchClient
      * Create Youtube search client instance.
      * @param apiKey Your personal Api key or Developer key.
      */
-    public YouTubeSearchClient(String apiKey)
+    public YoutubeApiV3Client(String apiKey)
     {
         this._DeveloperKey = apiKey;
         this._UrlBuilder = new UrlBuilder((this._DeveloperKey));
