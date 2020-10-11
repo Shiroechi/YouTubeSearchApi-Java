@@ -23,9 +23,11 @@ public class Utils {
                 "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
 
         connection.connect();
+        
+        InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream(),
+                Charset.forName("UTF-8"));
 
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream(),
-                Charset.forName("UTF-8")));
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -34,6 +36,9 @@ public class Utils {
         while((line = bufferedReader.readLine()) != null) {
             stringBuilder.append(line);
         }
+
+        bufferedReader.close();
+        inputStreamReader.close();
 
         return stringBuilder.toString();
     }
