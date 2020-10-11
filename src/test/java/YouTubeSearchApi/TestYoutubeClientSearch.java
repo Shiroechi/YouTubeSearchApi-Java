@@ -17,6 +17,7 @@ public class TestYoutubeClientSearch {
 
         try {
             videos = client.search("CHiCO Love Letter", 5);
+            System.out.println(videos.size());
             System.out.println(videos.toString());
         } catch (IOException e) {
             e.printStackTrace();

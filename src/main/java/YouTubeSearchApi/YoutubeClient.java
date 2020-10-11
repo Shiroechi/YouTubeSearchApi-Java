@@ -52,7 +52,7 @@ public class YoutubeClient {
                                   .get("contents").getAsJsonArray();
 
         // Flags
-        int counter = 1;
+        int counter = 0;
         List<YoutubeVideo> videos = new ArrayList<YoutubeVideo>();
 
         for (JsonElement videoJsonElement : contents) {
