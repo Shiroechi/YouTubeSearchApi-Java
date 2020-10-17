@@ -39,7 +39,7 @@ public class YoutubeClient {
         }
 
         if (!foundFeatureFlag) {
-            throw new NoResultFoundException("what you searched was unfortunately not found or doesn't exist. keywords" + keywords);
+            throw new NoResultFoundException("what you searched was unfortunately not found or doesn't exist. keywords: " + keywords);
         }
 
 
