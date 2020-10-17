@@ -1,6 +1,7 @@
 package YouTubeSearchApi;
 
 import YouTubeSearchApi.entity.YoutubeVideo;
+import YouTubeSearchApi.exception.NoResultFoundException;
 import YouTubeSearchApi.utility.Utils;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -21,13 +22,26 @@ public class YoutubeClient {
         this.YOUTUBE_BASE_URL = "https://www.youtube.com/";
     }
 
-    public List<YoutubeVideo> search(String keywords, int maxResults) throws IOException {
+    public List<YoutubeVideo> search(String keywords, int maxResults) throws IOException, NoResultFoundException {
+        String startFeature = "window[\"ytInitialData\"]";
         String encodedKeywords = URLEncoder.encode(keywords, StandardCharsets.UTF_8.toString());
         String searchUrl = this.YOUTUBE_BASE_URL + "results?search_query=" + encodedKeywords;
 
-        String pageContent = Utils.httpRequest(searchUrl);
+        // try get feature 3 times
+        String pageContent = "";
+        boolean foundFeatureFlag = false;
+        for (int i = 0; i < 3; i++) {
+            pageContent = Utils.httpRequest(searchUrl);
+            if (pageContent.contains(startFeature)) {
+                foundFeatureFlag = true;
+                break;
+            }
+        }
 
-        String startFeature = "window[\"ytInitialData\"]";
+        if (!foundFeatureFlag) {
+            throw new NoResultFoundException("what you searched was unfortunately not found or doesn't exist. keywords: " + keywords);
+        }
+
 
         // + startFeature.length() + 3. because we want to get rid of the startFeature and " = ".
         // And get only the Json data
