@@ -2,6 +2,7 @@ package YouTubeSearchApi;
 
 
 import YouTubeSearchApi.entity.YoutubeVideo;
+import YouTubeSearchApi.exception.NoResultFoundException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class TestYoutubeClientSearch {
             videos = client.search("CHiCO Love Letter", 5);
             System.out.println(videos.size());
             System.out.println(videos.toString());
-        } catch (IOException e) {
+        } catch (IOException | NoResultFoundException e) {
             e.printStackTrace();
         }
 
