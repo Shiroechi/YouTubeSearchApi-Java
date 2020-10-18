@@ -116,7 +116,7 @@ public class YoutubeClient {
         return YoutubeVideo.getParsedOEmbedObject(videoObject);
     }
 
-    public YoutubePlaylist getRecommendationPlaylist(String videoId) throws IOException, NoResultFoundException {
+    public YoutubePlaylist getRecommendation(String videoId) throws IOException, NoResultFoundException {
         String requestUrl = this.YOUTUBE_BASE_URL + "watch?v=" + videoId;
 
         String pageContent = Utils.httpRequest(requestUrl);
@@ -144,7 +144,7 @@ public class YoutubeClient {
             return youtubePlaylist;
         }
         else {
-            throw new NoResultFoundException("What you searched was unfortunately not found or doesn't exist. keywords: " + videoId);
+            throw new NoResultFoundException("Cannot find any recommendation for videoId: " + videoId);
         }
     }
 }

@@ -9,7 +9,7 @@ public class TestYoutubeClientGetRecommendation {
     public static void main(String[] args) {
         YoutubeClient client = new YoutubeClient();
         try {
-            YoutubePlaylist youtubePlaylist = client.getRecommendationPlaylist("oCrwzN6eb4Q");
+            YoutubePlaylist youtubePlaylist = client.getRecommendation("oCrwzN6eb4Q");
             System.out.println(youtubePlaylist);
         } catch (IOException | NoResultFoundException e) {
             e.printStackTrace();
