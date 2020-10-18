@@ -1,5 +1,6 @@
 package YouTubeSearchApi;
 
+import YouTubeSearchApi.entity.YoutubePlaylist;
 import YouTubeSearchApi.entity.YoutubeVideo;
 import YouTubeSearchApi.exception.NoResultFoundException;
 import YouTubeSearchApi.utility.Utils;
@@ -13,6 +14,8 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class YoutubeClient {
 
@@ -39,7 +42,7 @@ public class YoutubeClient {
         }
 
         if (!foundFeatureFlag) {
-            throw new NoResultFoundException("what you searched was unfortunately not found or doesn't exist. keywords: " + keywords);
+            throw new NoResultFoundException("What you searched was unfortunately not found or doesn't exist. keywords: " + keywords);
         }
 
 
@@ -111,5 +114,37 @@ public class YoutubeClient {
         JsonObject videoObject = gson.fromJson(pageContent, JsonObject.class);
 
         return YoutubeVideo.getParsedOEmbedObject(videoObject);
+    }
+
+    public YoutubePlaylist getRecommendation(String videoId) throws IOException, NoResultFoundException {
+        String requestUrl = this.YOUTUBE_BASE_URL + "watch?v=" + videoId;
+
+        String pageContent = Utils.httpRequest(requestUrl);
+
+        Pattern pattern = Pattern.compile(
+                "\"compactRadioRenderer\"(.+?)\"compactVideoRenderer\"",
+                Pattern.CASE_INSENSITIVE
+        );
+        Matcher matcher = pattern.matcher(pageContent);
+
+        if (matcher.find()) {
+            String compactRadioRenderer = matcher.group();
+            compactRadioRenderer = "{" + compactRadioRenderer.substring(0,
+                    compactRadioRenderer.length() - ",{\"compactVideoRenderer\"".length());
+
+            System.out.println(compactRadioRenderer);
+
+            Gson gson = new Gson();
+
+            JsonObject compactRadioRendererObject = gson.fromJson(compactRadioRenderer, JsonObject.class)
+                                                        .get("compactRadioRenderer")
+                                                        .getAsJsonObject();
+            YoutubePlaylist youtubePlaylist = YoutubePlaylist.parseCompactRadioRenderer(compactRadioRendererObject);
+
+            return youtubePlaylist;
+        }
+        else {
+            throw new NoResultFoundException("Cannot find any recommendation for videoId: " + videoId);
+        }
     }
 }
