@@ -132,8 +132,6 @@ public class YoutubeClient {
             compactRadioRenderer = "{" + compactRadioRenderer.substring(0,
                     compactRadioRenderer.length() - ",{\"compactVideoRenderer\"".length());
 
-            System.out.println(compactRadioRenderer);
-
             Gson gson = new Gson();
 
             JsonObject compactRadioRendererObject = gson.fromJson(compactRadioRenderer, JsonObject.class)
