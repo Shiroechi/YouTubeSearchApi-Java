@@ -26,7 +26,7 @@ public class YoutubeClient {
     }
 
     public List<YoutubeVideo> search(String keywords, int maxResults) throws IOException, NoResultFoundException {
-        String startFeature = "window[\"ytInitialData\"]";
+        String startFeature = "ytInitialData";
         String encodedKeywords = URLEncoder.encode(keywords, StandardCharsets.UTF_8.toString());
         String searchUrl = this.YOUTUBE_BASE_URL + "results?search_query=" + encodedKeywords;
 
