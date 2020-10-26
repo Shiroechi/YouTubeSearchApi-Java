@@ -25,7 +25,7 @@ dependencies {
     implementation 'com.google.guava:guava:29.0-jre'
 
     // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.1'
 
     // Gson for parsing nested json
     implementation 'com.google.code.gson:gson:2.8.6'
