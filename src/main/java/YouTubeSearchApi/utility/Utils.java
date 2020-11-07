@@ -20,7 +20,7 @@ public class Utils {
      */
     public static String httpRequest(String url) throws IOException {
         URLConnection connection = new URL(url).openConnection();
-        connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
+        connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
         connection.connect();
         
         InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream(),
