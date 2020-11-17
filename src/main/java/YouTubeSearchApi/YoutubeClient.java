@@ -25,10 +25,11 @@ public class YoutubeClient {
         this.YOUTUBE_BASE_URL = "https://www.youtube.com/";
     }
 
-    public List<YoutubeVideo> search(String keywords, int maxResults) throws IOException, NoResultFoundException {
+    public List<YoutubeVideo> search(String keywords, int maxResults, String language) throws IOException, NoResultFoundException {
         String startFeature = "ytInitialData";
         String encodedKeywords = URLEncoder.encode(keywords, StandardCharsets.UTF_8.toString());
-        String searchUrl = this.YOUTUBE_BASE_URL + "results?search_query=" + encodedKeywords;
+        String searchUrl = this.YOUTUBE_BASE_URL + "results?gl=AU&hl=" + language
+                + "&persist_gl=1&persist_hl=1&search_query=" + encodedKeywords;
 
         // try get feature 3 times
         String pageContent = "";

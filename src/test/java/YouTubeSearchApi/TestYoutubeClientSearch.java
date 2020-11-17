@@ -17,7 +17,7 @@ public class TestYoutubeClientSearch {
         List<YoutubeVideo> videos;
 
         try {
-            videos = client.search("CHiCO Love Letter", 5);
+            videos = client.search("yoasobi", 5, "en");
             System.out.println(videos.size());
             System.out.println(videos.toString());
         } catch (IOException | NoResultFoundException e) {
