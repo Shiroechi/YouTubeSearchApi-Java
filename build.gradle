@@ -28,5 +28,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     // Gson for parsing nested json
-    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.code.gson:gson:2.8.7'
 }
